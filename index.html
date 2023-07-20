@@ -1,0 +1,126 @@
+<html style="width: 100% ;height:100%;" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title style="font-family: Georgia, 'Times New Roman', Times, serif;">Calculator</title>
+    <style>
+        .calculator{
+            padding-left: 30%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            min-width: 100%;
+            padding-right: 30%;
+            display: grid;
+            justify-content: center;
+
+        }
+        .fun{
+            border-radius: 10px;
+            background-color:rgb(249, 243, 235);
+            border-color: rgb(2, 152, 190);
+        }
+
+        .digit{
+            border-radius: 10px;
+            background-color: white;
+            border-color: rgb(139, 227, 249);
+        }
+        .res{
+            border-radius: 10px;
+            background-color: rgb(141, 200, 220);
+            border-color: rgb(23, 138, 166);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="display: flex; color: rgb(25, 36, 244); justify-content: center; font-family:'Times New Roman', Times, serif">Calculator</h1>
+    </header>
+    <main class="calculator">
+        <div class="row1" >
+            <input style="width: 320px; height: 50px; border: solid black; font-size: larger;font-family: 'Times New Roman', Times, serif;border-radius: 10px;text-align: end;" type="text" id="output">
+        </div><pre></pre>
+        <div style="width:340px;">
+            <input style="width: 60px;" class="fun" type="button" value="sin" onclick="append('sin')">
+            <input style="width: 60px;" class="fun" type="button" value="cos" onclick="append('cos')">
+            <input style="width: 60px;" class="fun" type="button" value="tan" onclick="append('tan')">
+            <input style="width: 60px;" class="fun" type="button" value="[" onclick="append('[')">
+            <input style="width: 60px;" class="fun" type="button" value="]"onclick="append(']')">
+        </div>
+        <div style="width: 340px;" class="row3">
+            <input style="width: 60px;" type="button" class="fun" value="sqrt" onclick="append('sqrt')">
+            <input style="width: 60px;" type="button" class="fun" value="pow" onclick="append('^')">
+            <input style="width: 60px;" type="button" class="fun" value="*" onclick="append('*')">
+            <input style="width: 60px;" type="button" class="fun" value="%" onclick="append('%')">
+            <input style="width: 60px;" type="button" class="fun" value="/"onclick="append('/')" >  
+        </div>
+        <div  style="width: 340px;" class="row4">
+            <input style="width: 76px;"  class="digit" type="button" value="9" onclick="append('9')">
+            <input style="width: 76px;"  class="digit" type="button" value="8" onclick="append('8')">
+            <input style="width: 76px;" class="digit" type="button" value="7" onclick="append('7')">
+            <input style="width: 76px;" class="fun" type="button" value="+" onclick="append('+')">
+        </div>
+        <div  style="width: 340px;" class="row5">
+            <input style="width: 76px;" class="digit" type="button" value="6" onclick="append('6')">
+            <input style="width: 76px;" class="digit" type="button" value="5" onclick="append('5')">
+            <input style="width: 76px;" class="digit" type="button" value="4" onclick="append('4')">
+            <input style="width: 76px;" class="fun" type="button" value="-" onclick="append('-')">
+        </div>
+        <div style="width: 340px;" class="row6">
+            <input style="width: 76px;" class="digit" type="button" value="3" onclick="append('3')">
+            <input style="width: 76px;" class="digit" type="button" value="2" onclick="append('2')">
+            <input style="width: 76px;" class="digit" type="button" value="1" onclick="append('1')">
+            <input style="width: 76px;" class="fun" type="button" value="C" onclick="clearsection()">
+        </div>
+        <div style="width: 340px;" class="row7">
+            <input style="width: 76px;" class="digit" type="button" value="." onclick="append('.')">
+            <input style="width: 76px;" class="digit" type="button" value="0" onclick="append('0')">
+            <input style="width: 155px;" class="res" type="button" value="=" onclick="result()">
+        </div>
+    </main>
+    <script>
+        function append(value){
+            document.getElementById('output').value +=value;
+        }
+        function clearsection(){
+            document.getElementById('output').value='';
+        }
+        function result(){
+            var txt=document.getElementById('output').value;
+            if (txt.match(/sin(?:\[)?(\d+)(?:\])?/)){
+                var val= parseFloat(txt.match(/sin(?:\[)?(\d+)(?:\])?/)[1]);
+                var res=Math.sin(val*Math.PI/180);
+                document.getElementById('output').value=res;
+            }
+            else if (txt.match(/cos(?:\[)?(\d+)(?:\])?/)){
+                var val= parseFloat(txt.match(/cos(?:\[)?(\d+)(?:\])?/)[1]);
+                var res=Math.cos((val)*Math.PI/180);
+                document.getElementById('output').value=res;
+            }
+            else if (txt.match(/tan(?:\[)?(\d+)(?:\])?/)){
+                var val= parseFloat(txt.match(/tan(?:\[)?(\d+)(?:\])?/)[1]);
+                var res=Math.tan((val)*Math.PI/180);
+                document.getElementById('output').value=res;
+            }
+            else if (txt.match(/sqrt(?:\[)?(\d+)(?:\])?/)){
+                var val= parseFloat(txt.match(/sqrt(?:\[)?(\d+)(?:\])?/)[1]);
+                var res=Math.sqrt((val));
+                document.getElementById('output').value=res;
+            }
+            else if(txt.includes('^')){
+                var val=txt.split('^');
+                var x1=parseInt(val[0]);
+                var x2=parseInt(val[1]);
+                var res=Math.pow(x1,x2);
+                document.getElementById('output').value=res;
+            }
+            else{
+                var res=eval(txt);
+                document.getElementById('output').value=res;
+            }
+            
+        }
+    </script>
+    
+</body>
+</html>
